@@ -9,7 +9,6 @@ module.exports = function (grunt) {
 
   var defaults = require('../lib/defaults');
   var hashFile = require('../lib/hashFile');
-  var gzipFile = require('../lib/gzipFile');
   var upload = require('../lib/uploadFile');
 
   var encodingOptions = { 'encoding': 'utf8' };
@@ -41,7 +40,6 @@ module.exports = function (grunt) {
       name,
       local,
       null,
-      !!options.gzip,
       done
     ];
 
@@ -56,15 +54,6 @@ module.exports = function (grunt) {
         grunt.log.debug('\u25C8'.yellow, name);
         return callback(null, remote);
       }
-      // for gzip'd files, create a temp file & upload that instead
-      else if (options.gzip) {
-        grunt.log.debug('gzipping', local);
-        gzipFile(local, function (err, gzFile) {
-          args[1] = gzFile;
-          upload.apply(null, args);
-        });
-        return;
-      }
       // everything else, just upload it right away
       else {
         grunt.log.debug('uploading %s to %s', local, remote);
@@ -73,7 +62,7 @@ module.exports = function (grunt) {
     });
   }
 
-  function S3UploadTask () {
+  function AzureUploadTask () {
 
     var that = this;
 
@@ -86,11 +75,11 @@ module.exports = function (grunt) {
 
     // init the uploader
     upload.init({
+      'account': options.account,
       'key': options.key,
       'secret': options.secret,
-      'bucket': options.bucket,
-      'region': options.region,
-      'style': 'virtualHosted'
+      'connection': options.connection,
+      'container': options.container
     });
 
     var max = options.throttle;
@@ -113,5 +102,5 @@ module.exports = function (grunt) {
   }
 
   grunt.registerMultiTask('bilder/upload',
-      'Upload to a S3 bucket', S3UploadTask);
+      'Upload to a Azure container', AzureUploadTask);
 };

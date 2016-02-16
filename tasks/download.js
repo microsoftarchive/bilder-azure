@@ -10,16 +10,18 @@ module.exports = function (grunt) {
     'destDir': 'build'
   };
 
-  function S3DownloadTask () {
+  function AzureDownloadTask () {
     var that = this;
     var options = that.options(defaults);
     var done = that.async();
 
     // init the downloader
     download.init({
+      'account': options.account,
       'key': options.key,
       'secret': options.secret,
-      'bucket': options.bucket
+      'connection': options.connection,
+      'container': options.container
     });
 
     var files = that.data.src;
@@ -33,5 +35,5 @@ module.exports = function (grunt) {
   }
 
   grunt.registerMultiTask('bilder/download',
-    'Get objects from a s3 bucket', S3DownloadTask);
+    'Get objects from a Azure blob storage container', AzureDownloadTask);
 };
