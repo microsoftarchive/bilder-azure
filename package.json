@@ -1,26 +1,22 @@
 {
   "name": "bilder-azure",
-  "version": "0.1.7",
-  "description": "azure tasks for bilder",
+  "version": "0.1.0",
+  "description": "Auzure blob storage upload tasks for bilder",
   "scripts": {
     "test": "mocha specs/*.spec.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/msftberlins/bilder-azure.git"
+    "url": "https://github.com/wunderlist/bilder-azure.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/msftberlins/bilder-azure/issues"
+    "url": "https://github.com/wunderlist/bilder-azure/issues"
   },
   "dependencies": {
     "async": "^0.7.0",
     "azure-storage": "^0.8.0",
-    "colors": "~0.6.1",
-    "knox": "^0.8.9",
-    "mime": "^1.2.11",
-    "ssh2": "^0.2.21",
-    "tmp": "0.0.23"
+    "mime": "^1.2.11"
   },
   "devDependencies": {
     "mocha": "~1.12.0"

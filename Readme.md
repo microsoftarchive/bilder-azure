@@ -1,1 +1,1 @@
-S3 tasks for bilder
+Auzure blob storage upload tasks for bilder
